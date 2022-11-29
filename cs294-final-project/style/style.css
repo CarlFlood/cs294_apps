@@ -1,0 +1,34 @@
+body {
+  margin: 0px;
+}
+
+.mdc-list-item__text, .mdc-list-item__primary-text {
+  padding: 10px 0 10px 0;
+}
+
+.mdc-list-item__secondary-text {
+  padding: 0 0 10px 0;
+}
+
+.mdc-list-item__graphic {
+  padding: 10px;
+}
+
+.mdc-fab {
+  position: absolute !important;
+  bottom: 20px;
+  right: 30px;
+}
+
+.mdc-text-field {
+  width: 100% !important;
+  margin-top: 15px !important;
+}
+
+.mdc-dialog__content {
+  text-align: center;
+}
+
+.mdc-top-app-bar--fixed-adjust {
+  height: calc(100vh - 64px);
+}
