@@ -2,7 +2,7 @@
 // prompted by your browser. If you see the error "The Geolocation service
 // failed.", it means you probably did not give permission for the browser to
 // locate you.
-let map, infoWindow, service;
+let map, infoWindow, service, zipCode;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
@@ -22,16 +22,14 @@ function initMap() {
           lng: position.coords.longitude,
         };
 
+        fetchZipCode(position.coords.latitude, position.coords.longitude);
+
         map.setCenter(pos);
         map.setZoom(15);
-        var marker = new google.maps.Marker({
-          position: pos,
-          map: map
-        });
 
         var request = {
           location: pos,
-          radius: '500',
+          radius: '1000',
           type: ['restaurant']
         };
 
@@ -46,6 +44,23 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+}
+
+function fetchZipCode(lat, lng) {
+  fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=AIzaSyCDVQ3UnrkvAXPmROTkI3hewNz_as_1o8c`)
+    .then((response) => response.json())
+    .then((data) => {
+      const { status, results } = data;
+
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          for (let j = 0; j < results[0].address_components.length; j++) {
+            if (results[0].address_components[j].types[0] == 'postal_code')
+              zipCode = results[0].address_components[j].short_name;
+          }
+        }
+      }
+    });
 }
 
 function handleLocationError(
@@ -73,10 +88,10 @@ function callback(results, status) {
       const info = new google.maps.InfoWindow({
         content: `
           <h1>${results[i].name}</h1>
-          <button class="mdc-button mdc-button--outlined">
+          <a class="mdc-button mdc-button--outlined" href="health_department.html?place=${results[i].place_id}&zip=${zipCode}&name=${results[i].name}">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">Warnings</span>
-          </button>
+          </a>
           <button class="mdc-button mdc-button--outlined">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">Reviews</span>
