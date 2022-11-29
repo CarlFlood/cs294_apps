@@ -65,9 +65,35 @@ function handleLocationError(
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      new google.maps.Marker({
+      const marker = new google.maps.Marker({
         position: results[i].geometry.location,
         map: map
+      });
+
+      const info = new google.maps.InfoWindow({
+        content: `
+          <h1>${results[i].name}</h1>
+          <button class="mdc-button mdc-button--outlined">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">Warnings</span>
+          </button>
+          <button class="mdc-button mdc-button--outlined">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">Reviews</span>
+          </button>
+          <button class="mdc-button mdc-button--outlined">
+            <span class="mdc-button__ripple"></span>
+            <span class="mdc-button__label">Photos</span>
+          </button>
+        `,
+        ariaLabel: results[i].name,
+      });
+
+      marker.addListener("click", () => {
+        info.open({
+          anchor: marker,
+          map,
+        });
       });
     }
   }
