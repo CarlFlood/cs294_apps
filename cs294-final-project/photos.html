@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Restaurants - Food Photos</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <title>Restaurants - Photos</title>
+  <link rel="icon" type="favicon" href="images/icon-192x192.png" />
 
   <!-- Material Design Imports -->
   <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
@@ -24,19 +24,67 @@
   <header class="mdc-top-app-bar">
     <div class="mdc-top-app-bar__row">
       <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-        <span class="mdc-top-app-bar__title">Restuarant Finder + Personal Reviewer</span>
+        <button onclick="location.href='index.html';"
+          class="material-icons mdc-top-app-bar__navigation-icon mdc-icon-button"
+          aria-label="Go Back">arrow_back</button>
+        <span class="mdc-top-app-bar__title">Restuarant Finder + Personal Photoer</span>
       </section>
     </div>
   </header>
 
   <!-- Main Content -->
   <main class="mdc-top-app-bar--fixed-adjust">
-    <!-- Begin Content -->
+    <!-- New Photo Dialog -->
+    <div class="mdc-dialog">
+      <div class="mdc-dialog__container">
+        <div class="mdc-dialog__surface" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title"
+          aria-describedby="my-dialog-content">
+          <h2 class="mdc-dialog__title" id="my-dialog-title">Create Photo</h2>
+          <div class="mdc-dialog__content" id="my-dialog-content">
+            <button id="startbutton" class="mdc-button mdc-button--outlined">
+              <span class="mdc-button__ripple"></span>
+              <span class="mdc-button__label">Take Photo</span>
+            </button>
+            <br />
+            <img id="showImageNewDialog" class="takeImage" />
+          </div>
 
+          <div class="mdc-dialog__actions">
+            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="close">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">Cancel</span>
+            </button>
+            <button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="accept"
+              id="saveNewPhoto">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">Save</span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="mdc-dialog__scrim"></div>
+    </div>
+
+    <!-- Begin Content -->
+    <h1 class="mdc-typography--headline2">Personal Photos of Food List</h1>
+    <p class="mdc-typography--body1">Photos are populated from your device.</p>
+    <button class="mdc-button mdc-button--outlined" id="openAddModal">
+      <span class="mdc-button__ripple"></span>
+      <span class="mdc-button__label">Add Photo</span>
+    </button>
+    
+    <!-- List of Notes -->
+    <ul class="mdc-list mdc-list--two-line" id="photos">
+    </ul>
     <!-- End Content -->
   </main>
 
+  <!-- Capture image -->
+  <canvas id="canvas"> </canvas>
+  <video id="video">Video stream not available.</video>
+
   <!-- Script Imports -->
+  <script src="scripts/photos.js" type="text/javascript"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
   <title>Restaurants - Home</title>
+  <link rel="icon" type="favicon" href="images/icon-192x192.png" />
 
   <!-- Material Design Imports -->
   <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
@@ -26,6 +27,16 @@
       "AIzaSyCDVQ3UnrkvAXPmROTkI3hewNz_as_1o8c";
   </script>
   <script type="module" src="scripts/map.js"></script>
+
+  <!-- PWA -->
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-72x72.png" />
+  <link rel="apple-touch-icon" href="icon-192x192.png" />
+  <link rel="apple-touch-icon" href="icon-256x256.png" />
+  <link rel="apple-touch-icon" href="icon-384x384.png" />
+  <link rel="apple-touch-icon" href="icon-512x512.png" />
+  <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+  <meta name="theme-color" content="#db4938" />
 </head>
 
 <body>
@@ -40,18 +51,24 @@
 
   <!-- Main Content -->
   <main class="mdc-top-app-bar--fixed-adjust">
+    <!-- Geolocation Banner -->
+    <div class="mdc-banner" role="banner">
+      <div class="mdc-banner__content" role="alertdialog" aria-live="assertive">
+        <div class="mdc-banner__graphic-text-wrapper">
+          <div class="mdc-banner__text">
+            You are being geolocated. Please wait...
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- Begin Content -->
     <div id="map"></div>
     <!-- End Content -->
   </main>
 
   <!-- Script Imports -->
-  <!-- 
-     The `defer` attribute causes the callback to execute after the full HTML
-     document has been parsed. For non-blocking uses, avoiding race conditions,
-     and consistent behavior across browsers, consider loading using Promises
-     with https://www.npmjs.com/package/@googlemaps/js-api-loader.
-    -->
+  <script src="serviceWorker.js"></script>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDVQ3UnrkvAXPmROTkI3hewNz_as_1o8c&callback=initMap&v=weekly&libraries=places"
     defer></script>

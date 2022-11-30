@@ -10,9 +10,10 @@ const params = query.split('&').reduce((accumulator, singleQueryParam) => {
 }, {});
 
 // Fetch the health department records for the given location
-fetch(`https://data.cityofchicago.org/resource/4ijn-s7e5.json?$where=zip%20=%20${params.zip}`)
+fetch(`https://data.cityofchicago.org/resource/4ijn-s7e5.json?$where=zip%20=%20${params.zip}&$limit=1000&$$app_token=iYzpfo9SlG3yWBUqqp0pEpvK0`)
   .then((response) => response.json())
   .then((data) => {
+    // Find the relevant record
     const name = params.name.toUpperCase();
     const relevantRecord = data.find((place) => {
       if (place.dba_name && place.dba_name.includes(name)) {
@@ -24,6 +25,11 @@ fetch(`https://data.cityofchicago.org/resource/4ijn-s7e5.json?$where=zip%20=%20$
       return false;
     });
 
+    // No inspections found for restaurant
+    if (!relevantRecord) {
+      return;
+    }
+
     // Clear "no violations" message if violations found
     const violations = relevantRecord.violations.split("|");
     const violationList = document.querySelector("#violations");
@@ -31,6 +37,7 @@ fetch(`https://data.cityofchicago.org/resource/4ijn-s7e5.json?$where=zip%20=%20$
       violationList.innerHTML = "";
     }
 
+    // List out all the violations
     violations.forEach((violation) => {
       const li = document.createElement("li");
       li.classList.add("mdc-list-item");
