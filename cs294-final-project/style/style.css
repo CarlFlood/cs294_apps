@@ -2,6 +2,10 @@ body {
   margin: 0px;
 }
 
+main {
+  margin-left: 35px;
+}
+
 .mdc-list-item__text, .mdc-list-item__primary-text {
   padding: 10px 0 10px 0;
 }
