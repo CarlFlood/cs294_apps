@@ -1,13 +1,3 @@
-// Register PWA
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function() {
-    navigator.serviceWorker
-      .register("/cs294-final-project/serviceWorker.js", {scope: '/cs294-final-project/'})
-      .then(res => console.log("service worker registered"))
-      .catch(err => console.log("service worker not registered", err))
-  })
-}
-
 // Geolocation banner
 let map, infoWindow, service, zipCode;
 const banner = new mdc.banner.MDCBanner(document.querySelector('.mdc-banner'));
@@ -72,6 +62,9 @@ function fetchZipCode(lat, lng) {
           }
         }
       }
+    }).catch((err) => {
+      alert("The geocoder API is not available at the moment. Defaulting to 60657 zip code.");
+      zipCode = "60657";
     });
 }
 
@@ -95,29 +88,30 @@ function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       // Create new marker
+      const result = results[i];
       const marker = new google.maps.Marker({
-        position: results[i].geometry.location,
+        position: result.geometry.location,
         map: map
       });
 
       // Info window to allow for users to access restaurant pages
       const info = new google.maps.InfoWindow({
         content: `
-          <h1 class="mdc-typography--headline4">${results[i].name}</h1>
-          <a class="mdc-button mdc-button--outlined" href="health_department.html?place=${results[i].place_id}&zip=${zipCode}&name=${results[i].name}">
+          <h1 class="mdc-typography--headline4">${result.name}</h1>
+          <a class="mdc-button mdc-button--outlined" href="health_department.html">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">Warnings</span>
           </a>
-          <a class="mdc-button mdc-button--outlined" href="reviews.html?place_id=${results[i].place_id}">
+          <a class="mdc-button mdc-button--outlined" href="reviews.html">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">Reviews</span>
           </a>
-          <a class="mdc-button mdc-button--outlined" href="photos.html?place_id=${results[i].place_id}">
+          <a class="mdc-button mdc-button--outlined" href="photos.html">
             <span class="mdc-button__ripple"></span>
             <span class="mdc-button__label">Photos</span>
           </a>
         `,
-        ariaLabel: results[i].name,
+        ariaLabel: result.name,
       });
 
       // Listen for clicks
@@ -126,6 +120,7 @@ function callback(results, status) {
           anchor: marker,
           map,
         });
+        document.cookie = `place=${result.place_id}&zip=${zipCode}&name=${result.name}`;
       });
     }
   }

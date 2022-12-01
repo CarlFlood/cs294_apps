@@ -72,6 +72,17 @@
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDVQ3UnrkvAXPmROTkI3hewNz_as_1o8c&callback=initMap&v=weekly&libraries=places"
     defer></script>
+  <script>
+    // Register PWA
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function() {
+        navigator.serviceWorker
+          .register("./serviceWorker.js", {scope: '.'})
+          .then(res => console.log("service worker registered"))
+          .catch(err => console.log("service worker not registered", err))
+      })
+    }
+  </script>
 </body>
 
 </html>

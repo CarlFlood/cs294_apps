@@ -1,16 +1,25 @@
 // Asset list
-const staticDevCoffee = "dev-final-app-v1"
+const staticDevCoffee = "dev-final-app-v8"
 const assets = [
-  "/cs294-final-project/scripts/health.js",
-  "/cs294-final-project/scripts/map.js",
-  "/cs294-final-project/scripts/photos.js",
-  "/cs294-final-project/scripts/reviews.js",
-  "/cs294-final-project/style/map.css",
-  "/cs294-final-project/style/style.css",
-  "/cs294-final-project/health_department.html",
-  "/cs294-final-project/index.html",
-  "/cs294-final-project/photos.html",
-  "/cs294-final-project/reviews.html",
+  "./images/icon-192x192.png",
+  "./images/icon-256x256.png",
+  "./images/icon-512x512.png",
+  "./images/icon-384x384.png",
+  "./scripts/health.js",
+  "./scripts/map.js",
+  "./scripts/photos.js",
+  "./scripts/reviews.js",
+  "./style/map.css",
+  "./style/style.css",
+  "./health_department.html",
+  "./index.html",
+  "./photos.html",
+  "./reviews.html",
+  "https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css",
+  "https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js",
+  "https://fonts.googleapis.com/icon?family=Material+Icons",
+  "https://unpkg.com/dexie/dist/dexie.js",
+  "https://polyfill.io/v3/polyfill.min.js?features=default"
 ]
 
 // Install

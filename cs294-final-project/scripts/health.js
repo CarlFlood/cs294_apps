@@ -2,7 +2,7 @@
 const list = new mdc.list.MDCList(document.querySelector('.mdc-list'));
 
 // Get query parameters from URL
-const query = window.location.search.substr(1);
+const query = document.cookie;
 const params = query.split('&').reduce((accumulator, singleQueryParam) => {
   const [key, value] = singleQueryParam.split('=');
   accumulator[key] = decodeURIComponent(value);

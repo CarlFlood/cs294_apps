@@ -1,5 +1,5 @@
 // Get query parameters from URL
-const query = window.location.search.substr(1);
+const query = document.cookie;
 const params = query.split('&').reduce((accumulator, singleQueryParam) => {
   const [key, value] = singleQueryParam.split('=');
   accumulator[key] = decodeURIComponent(value);
@@ -50,7 +50,7 @@ async function renderReviews() {
 
 // Get all reviews from database
 const getReviews = async () => {
-  reviews = await db.reviews.where({ place_id: params.place_id }).reverse().toArray();
+  reviews = await db.reviews.where({ place_id: params.place }).reverse().toArray();
 }
 getReviews().then(() => renderReviews());
 
@@ -75,7 +75,7 @@ document.querySelector("#saveNewReview").addEventListener("click", () => {
   newTitleInput.value = "";
 
   // Save in database
-  db.reviews.add({ title, text, place_id: params.place_id })
+  db.reviews.add({ title, text, place_id: params.place })
     .then(() => {
       getReviews().then(() => renderReviews());
     })

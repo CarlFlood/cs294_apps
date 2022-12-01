@@ -1,5 +1,5 @@
 // Get query parameters from URL
-const query = window.location.search.substr(1);
+const query = document.cookie;
 const params = query.split('&').reduce((accumulator, singleQueryParam) => {
   const [key, value] = singleQueryParam.split('=');
   accumulator[key] = decodeURIComponent(value);
@@ -41,7 +41,7 @@ async function renderPhotos() {
 
 // Get photos from database
 const getPhotos = async () => {
-  photos = await db.photos.where({ place_id: params.place_id }).reverse().toArray();
+  photos = await db.photos.where({ place_id: params.place }).reverse().toArray();
 }
 getPhotos().then(() => renderPhotos());
 
@@ -53,7 +53,7 @@ document.querySelector("#openAddModal").addEventListener("click", () => {
 
 // Save the photo
 document.querySelector("#saveNewPhoto").addEventListener("click", () => {
-  db.photos.add({ photo: updateImage, place_id: params.place_id })
+  db.photos.add({ photo: updateImage, place_id: params.place })
     .then(() => {
       getPhotos().then(() => renderPhotos());
     })
