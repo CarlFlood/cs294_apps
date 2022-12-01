@@ -64,6 +64,19 @@
 
     <!-- Begin Content -->
     <div id="map"></div>
+    <div class="instructions">
+      <h1 class="mdc-typography--headline3">How to use:</h1>
+      <p class="mdc-typography--body1">
+        This application is meant to be your personal restaurant
+        guide. To begin, simply click any point on the map (all nearby
+        restaruants are automatically highlighted with a red marker.
+        You may select from "warnings" which will show you health code
+        violations for the restauarnt in question, "reviews" & "photos"
+        which allow you to save personal reviews and photos of any time
+        you try a place. That way, in the future, you can look back and
+        see if you enjoyed a place and if it is worth going back!
+      </p>
+    </div>
     <!-- End Content -->
   </main>
 
@@ -75,7 +88,7 @@
   <script>
     // Register PWA
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function() {
+      window.addEventListener("load", function () {
         navigator.serviceWorker
           .register("./serviceWorker.js", {scope: '.'})
           .then(res => console.log("service worker registered"))
